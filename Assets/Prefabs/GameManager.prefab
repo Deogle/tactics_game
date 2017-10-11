@@ -19,8 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4116182987339300}
-  - component: {fileID: 114449936002331876}
-  - component: {fileID: 114115390406355720}
+  - component: {fileID: 114209524121553714}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -41,7 +40,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114115390406355720
+--- !u!114 &114209524121553714
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -49,23 +48,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1851272863077806}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d57b68e3f4a61d04689e50a0bbb119c1, type: 3}
+  m_Script: {fileID: 11500000, guid: 91a785eaf48e1074a8699ba65af2abd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cols: 6
-  rows: 6
-  grassTile: {fileID: 1955945189754890, guid: f0d0092c47d882846b9e8e32e00699be, type: 2}
-  woodTile: {fileID: 1592915835101474, guid: 2bf12096d94c86f41a4282a09dcd02ef, type: 2}
---- !u!114 &114449936002331876
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1851272863077806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3529771370385d24b911a151d0d05411, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCam: {fileID: 0}
-  playerUnit: {fileID: 1297263785618854, guid: e3251db1baec5344896d1d713e866415, type: 2}
+  tileTypes:
+  - name: GrassTile
+    tileVisualPrefab: {fileID: 1955945189754890, guid: f0d0092c47d882846b9e8e32e00699be,
+      type: 2}
+  - name: WoodTile
+    tileVisualPrefab: {fileID: 1592915835101474, guid: 2bf12096d94c86f41a4282a09dcd02ef,
+      type: 2}
+  unit: {fileID: 1297263785618854, guid: e3251db1baec5344896d1d713e866415, type: 2}
+  selectedUnit: {fileID: 1297263785618854, guid: e3251db1baec5344896d1d713e866415,
+    type: 2}
+  sizeX: 5
+  sizeY: 5
