@@ -16,7 +16,7 @@ public class Map : MonoBehaviour {
     public GameObject selectedUnit;
 
     int[,] tiles;
-    Node[,] graph;
+    public Node[,] graph;
 
     public int sizeX;
     public int sizeY;
@@ -37,6 +37,7 @@ public class Map : MonoBehaviour {
 
     void GenerateMapData()
     {
+        Debug.Log("making map data");
         //Allocate map tiles
         tiles = new int[sizeX, sizeY];
 
@@ -54,23 +55,16 @@ public class Map : MonoBehaviour {
         {
             for (int y = 0; y < sizeY; ++y)
             {
-                //Grass is type 0, Wood type 1
-                if (x == 0 || x == sizeX - 1 || y == 0 || y == sizeY - 1)
-                {
-                    tiles[x, y] = GRASS_TILE;
-                }
-                else
-                {
-                    tiles[x, y] = WOOD_TILE;
-                }
+                tiles[x, y] = WOOD_TILE;
             }
         }
-    }//GenearteMapData
+    }//GenerateMapData
 
+    [System.Serializable]
     public class Node {
         public List<Node> edges;
-        public int x;
-        public int y;
+        public float x;
+        public float y;
 
         public Node(){
             edges = new List<Node>();
@@ -87,17 +81,21 @@ public class Map : MonoBehaviour {
 
     void GeneratePathGraph()
     {
+        Debug.Log("Generating Path Graph");
         //Init array
         graph = new Node[sizeX, sizeY];
 
-        //Init a node
+        //Init a node for each tile being added to the graph 
+        //Problem is that this is also including the grass tiles which shouldn't be part of the graph
         for(int x= 0; x < sizeX; x++)
         {
             for(int y= 0; y < sizeY; y++)
             {
-                graph[x, y] = new Node();
-                graph[x, y].x = x;
-                graph[x, y].y = y;
+                graph[x, y] = new Node
+                {
+                    x = x * TILE_OFFSET,
+                    y = y * TILE_OFFSET
+                };
             }
         }
 
@@ -120,6 +118,7 @@ public class Map : MonoBehaviour {
 
     void GenerateMapVisual()
     {
+        Debug.Log("Generating Map Visual");
         int startX = 1;
         int startY = 1;
         float offsetX = 0;
@@ -158,7 +157,7 @@ public class Map : MonoBehaviour {
 
     public void GeneratePathTo(float x, float y)
     {
-        Debug.Log("Generating Path");
+        Debug.Log("Generating Path to " +x+ "," + y);
         //Clear old path
         selectedUnit.GetComponent<Unit>().currentPath = null;
 
@@ -235,6 +234,6 @@ public class Map : MonoBehaviour {
 
         selectedUnit.GetComponent<Unit>().currentPath = currentPath;
 
-    }//MoveSelectedUnit
+    }//Generate Path using Dijkstra's pathfinding algorithm
 
 }

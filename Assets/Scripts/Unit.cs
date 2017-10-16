@@ -15,12 +15,11 @@ public class Unit : MonoBehaviour {
         if(currentPath != null)
         {
             int currentNode = 0;
-            while(currentNode < currentPath.Count - 1)
+            while(currentNode < currentPath.Count-1)
             {
                 Vector3 start = map.TileCoordToWorldCoord(currentPath[currentNode].x,currentPath[currentNode].y);
                 Vector3 end = map.TileCoordToWorldCoord(currentPath[currentNode+1].x, currentPath[currentNode+1].y);
 
-                Debug.Log("Drawing a line");
                 Debug.DrawLine(start,end, Color.red);
 
 
