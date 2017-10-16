@@ -6,9 +6,14 @@ public class Unit : MonoBehaviour {
 
     public float unitX;
     public float unitY;
+    public float movementPoints;
     public Map map;
 
-    public List<Map.Node> currentPath = null;
+    public List<List<Node>> possiblePaths;
+
+    public List<Node> currentPath = null;
+
+
 
     private void Update()
     {
@@ -28,6 +33,10 @@ public class Unit : MonoBehaviour {
         }
     }
 
+    public void MoveNextTile()
+    {
+        
+    }
 
 
 }

@@ -8,15 +8,13 @@ public class Map : MonoBehaviour {
     private const int GRASS_TILE = 0;
     private const int WOOD_TILE = 1;
 
-    private const float TILE_OFFSET = .63f;
-
     public TileType[] tileTypes;
     public GameObject unit;
 
     public GameObject selectedUnit;
 
     int[,] tiles;
-    public Node[,] graph;
+    Node[,] graph;
 
     public int sizeX;
     public int sizeY;
@@ -55,28 +53,25 @@ public class Map : MonoBehaviour {
         {
             for (int y = 0; y < sizeY; ++y)
             {
-                tiles[x, y] = WOOD_TILE;
+                int val = (int)Random.Range(GRASS_TILE, WOOD_TILE+1);
+                tiles[x, y] = val;
             }
         }
     }//GenerateMapData
 
-    [System.Serializable]
-    public class Node {
-        public List<Node> edges;
-        public float x;
-        public float y;
+    float TileCost(float sourceX, float sourceY, float targetX, float targetY)
+    {
+        
+        TileType tt = tileTypes[tiles[(int)targetX,(int)targetY]];
 
-        public Node(){
-            edges = new List<Node>();
-        }
+        float cost = tt.movementCost;
 
-        public float DistanceTo(Node n)
+        if(sourceX != targetX && sourceY != targetY)
         {
-            return Vector2.Distance(
-                    new Vector2(x, y),
-                    new Vector2(n.x, n.y)
-                    );
+            cost += 0.0001f;
         }
+
+        return cost;
     }
 
     void GeneratePathGraph()
@@ -93,8 +88,8 @@ public class Map : MonoBehaviour {
             {
                 graph[x, y] = new Node
                 {
-                    x = x * TILE_OFFSET,
-                    y = y * TILE_OFFSET
+                    x = x,
+                    y = y
                 };
             }
         }
@@ -103,12 +98,34 @@ public class Map : MonoBehaviour {
         {
             for(int y= 0; y < sizeY; y++)
             {
-                //4 edges per node
+                /*4 edges per node
                 if(x > 0)                
                     graph[x, y].edges.Add(graph[x - 1, y]); //connect via left
                 if(x < sizeX-1)                
                     graph[x, y].edges.Add(graph[x + 1, y]); //connect via right
                 if(y > 0)
+                    graph[x, y].edges.Add(graph[x, y - 1]); //connect via bottom
+                if (y < sizeY - 1)
+                    graph[x, y].edges.Add(graph[x, y + 1]); //connect via top*/
+
+                //8 edges per node
+                if (x > 0)
+                {
+                    graph[x, y].edges.Add(graph[x - 1, y]); //connect via left
+                    if (y > 0)
+                        graph[x, y].edges.Add(graph[x - 1, y - 1]);
+                    if (y < sizeY - 1)
+                        graph[x, y].edges.Add(graph[x - 1, y + 1]);
+                }
+                if (x < sizeX - 1)
+                { 
+                    graph[x, y].edges.Add(graph[x + 1, y]); //connect via right
+                    if (y > 0)
+                        graph[x, y].edges.Add(graph[x + 1, y - 1]);
+                    if (y < sizeY - 1)
+                        graph[x, y].edges.Add(graph[x + 1, y + 1]);
+                }
+                if (y > 0)
                     graph[x, y].edges.Add(graph[x, y - 1]); //connect via bottom
                 if (y < sizeY - 1)
                     graph[x, y].edges.Add(graph[x, y + 1]); //connect via top
@@ -119,10 +136,8 @@ public class Map : MonoBehaviour {
     void GenerateMapVisual()
     {
         Debug.Log("Generating Map Visual");
-        int startX = 1;
-        int startY = 1;
-        float offsetX = 0;
-        float offsetY = 0;
+        int startX = 0;
+        int startY = 0;
 
         for (int x = 0; x < sizeX; x++)
         {
@@ -130,23 +145,18 @@ public class Map : MonoBehaviour {
             {
                 TileType tt = tileTypes[tiles[x, y]];
 
-                offsetX = x * TILE_OFFSET;
-                offsetY = y * TILE_OFFSET;
-
-                GameObject go = (GameObject)Instantiate(tt.tileVisualPrefab, new Vector3(offsetX, offsetY, 0), Quaternion.identity);
+                GameObject go = (GameObject)Instantiate(tt.tileVisualPrefab, new Vector3(x, y, 0), Quaternion.identity);
                 
-                if(tiles[x,y] != GRASS_TILE)
-                {
-                    ClickableTile ct = go.GetComponent<ClickableTile>();
-                    ct.tileX = offsetX;
-                    ct.tileY = offsetY;
-                    ct.map = this;
-                }
+                ClickableTile ct = go.GetComponent<ClickableTile>();
+                ct.tileX = x;
+                ct.tileY = y;
+                ct.map = this;
+                
                 
             }
         }
 
-        selectedUnit = (GameObject)  Instantiate(unit, new Vector3(startY * TILE_OFFSET, startX * TILE_OFFSET, 0), Quaternion.identity);
+        //selectedUnit = (GameObject)  Instantiate(unit, new Vector3(startY, startX, 0), Quaternion.identity);
 
     }//GenerateMapVisual
 
@@ -157,7 +167,6 @@ public class Map : MonoBehaviour {
 
     public void GeneratePathTo(float x, float y)
     {
-        Debug.Log("Generating Path to " +x+ "," + y);
         //Clear old path
         selectedUnit.GetComponent<Unit>().currentPath = null;
 
@@ -205,8 +214,9 @@ public class Map : MonoBehaviour {
 
             foreach(Node v in u.edges)
             {
-                float alt = dist[u] + u.DistanceTo(v);
-                if(alt < dist[v])
+                float alt = dist[u] + TileCost(u.x,u.y,v.x,v.y);
+                //float alt = dist[u] + u.DistanceTo(v);
+                if (alt < dist[v] && alt <= selectedUnit.GetComponent<Unit>().movementPoints+1)
                 {
                     dist[v] = alt;
                     prev[v] = u;

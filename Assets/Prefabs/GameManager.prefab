@@ -55,9 +55,11 @@ MonoBehaviour:
   - name: GrassTile
     tileVisualPrefab: {fileID: 1955945189754890, guid: f0d0092c47d882846b9e8e32e00699be,
       type: 2}
+    movementCost: 1
   - name: WoodTile
     tileVisualPrefab: {fileID: 1592915835101474, guid: 2bf12096d94c86f41a4282a09dcd02ef,
       type: 2}
+    movementCost: 1
   unit: {fileID: 1297263785618854, guid: e3251db1baec5344896d1d713e866415, type: 2}
   selectedUnit: {fileID: 1297263785618854, guid: e3251db1baec5344896d1d713e866415,
     type: 2}

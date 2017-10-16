@@ -9,8 +9,6 @@ public class ClickableTile : MonoBehaviour {
 
     private void OnMouseUp()
     {
-        Debug.Log("Clicked tile " + tileX + "," + tileY);
-        Debug.Log("Pathing to" + map.TileCoordToWorldCoord(tileX, tileY));
         map.GeneratePathTo(tileX, tileY);
     }
 
