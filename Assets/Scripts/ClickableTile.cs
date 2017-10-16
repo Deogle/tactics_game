@@ -9,7 +9,7 @@ public class ClickableTile : MonoBehaviour {
 
     private void OnMouseUp()
     {
-        map.GeneratePathTo(tileX, tileY);
+        //map.GeneratePathTo(tileX, tileY);
     }
 
 }

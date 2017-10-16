@@ -136,8 +136,6 @@ public class Map : MonoBehaviour {
     void GenerateMapVisual()
     {
         Debug.Log("Generating Map Visual");
-        int startX = 0;
-        int startY = 0;
 
         for (int x = 0; x < sizeX; x++)
         {
@@ -168,7 +166,7 @@ public class Map : MonoBehaviour {
     public void GeneratePathTo(float x, float y)
     {
         //Clear old path
-        selectedUnit.GetComponent<Unit>().currentPath = null;
+        //selectedUnit.GetComponent<Unit>().currentPath = null;
 
         Dictionary<Node, float> dist = new Dictionary<Node, float>();
         Dictionary<Node, Node> prev = new Dictionary<Node, Node>();
@@ -182,6 +180,8 @@ public class Map : MonoBehaviour {
             ];
 
         Node target = graph[(int)x,(int)y];
+
+        Debug.Log("Pathing from " + source.x + "," + source.y + " to " + target.x + "," + target.y);
 
         dist[source] = 0;
         prev[source] = null;
@@ -242,7 +242,9 @@ public class Map : MonoBehaviour {
 
         currentPath.Reverse();
 
-        selectedUnit.GetComponent<Unit>().currentPath = currentPath;
+        Debug.Log(currentPath);
+
+        selectedUnit.GetComponent<Unit>().possiblePaths.Add(currentPath);
 
     }//Generate Path using Dijkstra's pathfinding algorithm
 
