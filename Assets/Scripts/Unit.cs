@@ -19,28 +19,32 @@ public class Unit : MonoBehaviour {
         FindPossibleMoves();
     }
 
+    //Build a list of all possible paths with current movement points
     public void FindPossibleMoves()
     {
         possiblePaths = new List<List<Node>>();
-        for(int x = 1; x < map.sizeX; x++)
+        //fairly inefficient method of finding possible moves.
+        //could constrain it to look at most movementPoints tiles away
+        //but this works in acceptable time given small grids
+        for(int x = 0; x < map.sizeX; x++)
         {
-            for(int y = 1; y < map.sizeY; y++)
+            for(int y = 0; y < map.sizeY; y++)
             {
                map.GeneratePathTo(x, y);        
             }
         }
+        
 
         foreach(List<Node> pPath in possiblePaths)
         {
+            //Debug.Log("logging new path of length "+pPath.Count);
             if (pPath != null)
             {
-                int currentNode = 0;
-                while (currentNode < pPath.Count - 1)
+                Debug.Log("logging new path of length " + pPath.Count);
+                int currentNode = 1;
+                while (currentNode < pPath.Count)
                 {
-                    Vector3 start = map.TileCoordToWorldCoord(pPath[currentNode].x, pPath[currentNode].y);
-                    Vector3 end = map.TileCoordToWorldCoord(pPath[currentNode + 1].x, pPath[currentNode + 1].y);
-
-                    Debug.DrawLine(start, end, Color.red);
+                    map.referenceTiles[(int)pPath[currentNode].x, (int)pPath[currentNode].y].HighlightPossibleMove();
 
                     currentNode++;
                 }

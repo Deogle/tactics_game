@@ -16,6 +16,8 @@ public class Map : MonoBehaviour {
     int[,] tiles;
     Node[,] graph;
 
+    public ClickableTile[,] referenceTiles;
+
     public int sizeX;
     public int sizeY;
 
@@ -38,6 +40,7 @@ public class Map : MonoBehaviour {
         Debug.Log("making map data");
         //Allocate map tiles
         tiles = new int[sizeX, sizeY];
+        referenceTiles = new ClickableTile[sizeX, sizeY];
 
         //Initial map tiles 
         for (int x = 0; x < sizeX; ++x)
@@ -57,6 +60,7 @@ public class Map : MonoBehaviour {
                 tiles[x, y] = val;
             }
         }
+
     }//GenerateMapData
 
     float TileCost(float sourceX, float sourceY, float targetX, float targetY)
@@ -98,34 +102,12 @@ public class Map : MonoBehaviour {
         {
             for(int y= 0; y < sizeY; y++)
             {
-                /*4 edges per node
+                //4 edges per node
                 if(x > 0)                
                     graph[x, y].edges.Add(graph[x - 1, y]); //connect via left
                 if(x < sizeX-1)                
                     graph[x, y].edges.Add(graph[x + 1, y]); //connect via right
                 if(y > 0)
-                    graph[x, y].edges.Add(graph[x, y - 1]); //connect via bottom
-                if (y < sizeY - 1)
-                    graph[x, y].edges.Add(graph[x, y + 1]); //connect via top*/
-
-                //8 edges per node
-                if (x > 0)
-                {
-                    graph[x, y].edges.Add(graph[x - 1, y]); //connect via left
-                    if (y > 0)
-                        graph[x, y].edges.Add(graph[x - 1, y - 1]);
-                    if (y < sizeY - 1)
-                        graph[x, y].edges.Add(graph[x - 1, y + 1]);
-                }
-                if (x < sizeX - 1)
-                { 
-                    graph[x, y].edges.Add(graph[x + 1, y]); //connect via right
-                    if (y > 0)
-                        graph[x, y].edges.Add(graph[x + 1, y - 1]);
-                    if (y < sizeY - 1)
-                        graph[x, y].edges.Add(graph[x + 1, y + 1]);
-                }
-                if (y > 0)
                     graph[x, y].edges.Add(graph[x, y - 1]); //connect via bottom
                 if (y < sizeY - 1)
                     graph[x, y].edges.Add(graph[x, y + 1]); //connect via top
@@ -143,14 +125,14 @@ public class Map : MonoBehaviour {
             {
                 TileType tt = tileTypes[tiles[x, y]];
 
-                GameObject go = (GameObject)Instantiate(tt.tileVisualPrefab, new Vector3(x, y, 0), Quaternion.identity);
+                GameObject tile = (GameObject)Instantiate(tt.tileVisualPrefab, new Vector3(x, y, 0), Quaternion.identity);
                 
-                ClickableTile ct = go.GetComponent<ClickableTile>();
+                ClickableTile ct = tile.GetComponent<ClickableTile>();
                 ct.tileX = x;
                 ct.tileY = y;
                 ct.map = this;
-                
-                
+                referenceTiles[x, y] = ct;
+                                
             }
         }
 
@@ -180,8 +162,6 @@ public class Map : MonoBehaviour {
             ];
 
         Node target = graph[(int)x,(int)y];
-
-        Debug.Log("Pathing from " + source.x + "," + source.y + " to " + target.x + "," + target.y);
 
         dist[source] = 0;
         prev[source] = null;
@@ -216,7 +196,7 @@ public class Map : MonoBehaviour {
             {
                 float alt = dist[u] + TileCost(u.x,u.y,v.x,v.y);
                 //float alt = dist[u] + u.DistanceTo(v);
-                if (alt < dist[v] && alt <= selectedUnit.GetComponent<Unit>().movementPoints+1)
+                if (alt < dist[v] && alt <= selectedUnit.GetComponent<Unit>().movementPoints)
                 {
                     dist[v] = alt;
                     prev[v] = u;
@@ -241,8 +221,6 @@ public class Map : MonoBehaviour {
         }
 
         currentPath.Reverse();
-
-        Debug.Log(currentPath);
 
         selectedUnit.GetComponent<Unit>().possiblePaths.Add(currentPath);
 
