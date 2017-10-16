@@ -16,6 +16,7 @@ public class Unit : MonoBehaviour {
     private void OnMouseUp()
     {
         Debug.Log("Moving Unit: " + this.gameObject.tag);
+        SelectUnit();
         map.selectedUnit = this.gameObject;
         FindPossibleMoves();
     }
@@ -62,6 +63,7 @@ public class Unit : MonoBehaviour {
         currentPath = possiblePaths[0];
         Debug.Log("Length of new currentPath " + currentPath.Count);
         MoveToSelection();
+        DeselectUnit();
     }
 
     public void MoveToSelection()
@@ -75,5 +77,15 @@ public class Unit : MonoBehaviour {
             currentNode++;
         }
         
+    }
+
+    private void SelectUnit()
+    {
+        this.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
+    }
+
+    private void DeselectUnit()
+    {
+        this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
     }
 }
