@@ -5,11 +5,16 @@ using UnityEngine;
 
 public class Map : MonoBehaviour {
 
-    private const int GRASS_TILE = 0;
-    private const int WOOD_TILE = 1;
+    private enum TileFloors
+    {
+        GRASS_TILE,
+        WOOD_TILE,
+        WATER_TILE,
+        COUNT
+    };
 
     public TileType[] tileTypes;
-    public GameObject unit;
+    public GameObject playerUnit;
 
     public GameObject selectedUnit;
 
@@ -52,12 +57,23 @@ public class Map : MonoBehaviour {
         }
 
         //Instantiate Board
+        //TODO change generation algorithm to trend toward aesthetically pleasing maps
+        //  with more natural formations like grasslands, 'forts', and lakes.
+        int val;
         for (int x = 0; x < sizeX; ++x)
         {
             for (int y = 0; y < sizeY; ++y)
             {
-                int val = (int)Random.Range(GRASS_TILE, WOOD_TILE+1);
-                tiles[x, y] = val;
+                if(x == 0 || y == 0 || x == sizeX-1 || y == sizeY - 1)
+                {
+                    val = (int)TileFloors.WOOD_TILE;
+                    tiles[x, y] = val;
+                } else
+                {
+                    val = Random.Range(0, System.Enum.GetValues(typeof(TileFloors)).Length - 1);
+                    tiles[x, y] = val;
+                }
+                
             }
         }
 
@@ -226,4 +242,12 @@ public class Map : MonoBehaviour {
 
     }//Generate Path using Dijkstra's pathfinding algorithm
 
+    public void ClearAllMoves()
+    {
+        foreach(ClickableTile tile in referenceTiles)
+        {
+            tile.ClearMove();
+        }
+    }
+    
 }

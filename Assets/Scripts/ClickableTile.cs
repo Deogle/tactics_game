@@ -6,14 +6,28 @@ public class ClickableTile : MonoBehaviour {
     public float tileX;
     public float tileY;
     public Map map;
-    private bool IsHighlighted = false;
+    public bool IsHighlighted = false;
+
+    Color defaultColor;
+
+    private void Start()
+    {
+        defaultColor = this.gameObject.GetComponent<SpriteRenderer>().color;
+    }
 
     private void OnMouseUp()
     {
         if (IsHighlighted)
         {
-            map.selectedUnit.GetComponent<Unit>().MoveNextTile();
+            map.selectedUnit.GetComponent<Unit>().MakeCurrentPath(tileX, tileY);
+            map.ClearAllMoves();
         }
+    }
+
+    public void ClearMove()
+    {
+        this.gameObject.GetComponent<SpriteRenderer>().color = defaultColor;
+        IsHighlighted = false;
     }
 
     public void HighlightPossibleMove()

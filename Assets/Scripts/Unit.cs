@@ -15,7 +15,8 @@ public class Unit : MonoBehaviour {
 
     private void OnMouseUp()
     {
-        Debug.Log("Listing");
+        Debug.Log("Moving Unit: " + this.gameObject.tag);
+        map.selectedUnit = this.gameObject;
         FindPossibleMoves();
     }
 
@@ -23,6 +24,7 @@ public class Unit : MonoBehaviour {
     public void FindPossibleMoves()
     {
         possiblePaths = new List<List<Node>>();
+
         //fairly inefficient method of finding possible moves.
         //could constrain it to look at most movementPoints tiles away
         //but this works in acceptable time given small grids
@@ -40,7 +42,6 @@ public class Unit : MonoBehaviour {
             //Debug.Log("logging new path of length "+pPath.Count);
             if (pPath != null)
             {
-                Debug.Log("logging new path of length " + pPath.Count);
                 int currentNode = 1;
                 while (currentNode < pPath.Count)
                 {
@@ -52,29 +53,27 @@ public class Unit : MonoBehaviour {
         }
     }
 
-
-    private void Update()
+    public void MakeCurrentPath(float x, float y)
     {
-        /*if(currentPath != null)
-        {
-            int currentNode = 0;
-            while(currentNode < currentPath.Count-1)
-            {
-                Vector3 start = map.TileCoordToWorldCoord(currentPath[currentNode].x,currentPath[currentNode].y);
-                Vector3 end = map.TileCoordToWorldCoord(currentPath[currentNode+1].x, currentPath[currentNode+1].y);
-
-                Debug.DrawLine(start,end, Color.red);
-
-
-                currentNode++;
-            }
-        }*/
+        possiblePaths.Clear();
+        Debug.Log("Pathing to " + x+"," + y);
+        map.GeneratePathTo(x, y);
+        Debug.Log("Lenght of possiblePaths: " + possiblePaths.Count);
+        currentPath = possiblePaths[0];
+        Debug.Log("Length of new currentPath " + currentPath.Count);
+        MoveToSelection();
     }
 
-    public void MoveNextTile()
+    public void MoveToSelection()
     {
+        int currentNode = 1;
+        while(currentNode < currentPath.Count)
+        {
+            transform.position = new Vector3(currentPath[currentNode].x, currentPath[currentNode].y, 0);
+            unitX = transform.position.x;
+            unitY = transform.position.y;
+            currentNode++;
+        }
         
     }
-
-
 }

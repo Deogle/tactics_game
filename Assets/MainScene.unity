@@ -204,21 +204,6 @@ GameObject:
   m_PrefabParentObject: {fileID: 1297263785618854, guid: e3251db1baec5344896d1d713e866415,
     type: 2}
   m_PrefabInternal: {fileID: 894628868}
---- !u!58 &883532257
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 883532253}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.28999996
 --- !u!1001 &894628868
 Prefab:
   m_ObjectHideFlags: 0
@@ -257,11 +242,6 @@ Prefab:
     - target: {fileID: 4810529261784326, guid: e3251db1baec5344896d1d713e866415, type: 2}
       propertyPath: m_RootOrder
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114086366636946638, guid: e3251db1baec5344896d1d713e866415,
-        type: 2}
-      propertyPath: movementPoints
-      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e3251db1baec5344896d1d713e866415, type: 2}
@@ -305,57 +285,17 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: grassTile
-      value: 
-      objectReference: {fileID: 1955945189754890, guid: f0d0092c47d882846b9e8e32e00699be,
-        type: 2}
-    - target: {fileID: 0}
-      propertyPath: woodTile
-      value: 
-      objectReference: {fileID: 1592915835101474, guid: 2bf12096d94c86f41a4282a09dcd02ef,
-        type: 2}
-    - target: {fileID: 0}
-      propertyPath: cols
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: rows
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: mainCam
-      value: 
-      objectReference: {fileID: 605705760}
-    - target: {fileID: 0}
-      propertyPath: playerUnit
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: unit
-      value: 
-      objectReference: {fileID: 1297263785618854, guid: e3251db1baec5344896d1d713e866415,
-        type: 2}
-    - target: {fileID: 114209524121553714, guid: 143d99afd58c4834681e9c27e2321f87,
-        type: 2}
-      propertyPath: sizeX
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114209524121553714, guid: 143d99afd58c4834681e9c27e2321f87,
-        type: 2}
-      propertyPath: sizeY
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114209524121553714, guid: 143d99afd58c4834681e9c27e2321f87,
-        type: 2}
-      propertyPath: tileTypes.Array.data[0].movementCost
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 114209524121553714, guid: 143d99afd58c4834681e9c27e2321f87,
         type: 2}
       propertyPath: selectedUnit
       value: 
       objectReference: {fileID: 883532253}
+    - target: {fileID: 114209524121553714, guid: 143d99afd58c4834681e9c27e2321f87,
+        type: 2}
+      propertyPath: playerUnit
+      value: 
+      objectReference: {fileID: 1297263785618854, guid: e3251db1baec5344896d1d713e866415,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 143d99afd58c4834681e9c27e2321f87, type: 2}
   m_IsPrefabParent: 0
