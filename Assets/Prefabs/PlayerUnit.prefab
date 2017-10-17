@@ -21,8 +21,7 @@ GameObject:
   - component: {fileID: 4810529261784326}
   - component: {fileID: 212842707751093318}
   - component: {fileID: 114086366636946638}
-  - component: {fileID: 58379937590158718}
-  - component: {fileID: 58601403548618660}
+  - component: {fileID: 58289986010122432}
   m_Layer: 0
   m_Name: PlayerUnit
   m_TagString: Player
@@ -37,13 +36,13 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1297263785618854}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.02, y: -0.02, z: 0}
+  m_LocalPosition: {x: 1.18, y: -1.5975739, z: 0}
   m_LocalScale: {x: 1.63, y: 1.63, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &58379937590158718
+--- !u!58 &58289986010122432
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -55,24 +54,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.000000013604496, y: 0.00000009460747}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.08257139
---- !u!58 &58601403548618660
-CircleCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1297263785618854}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.0054585612}
-  serializedVersion: 2
-  m_Radius: 0.082571425
+  m_Radius: 0.28999996
 --- !u!114 &114086366636946638
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -121,7 +105,7 @@ SpriteRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ef4bb74b921d32c498ea6f8e38678649, type: 3}
-  m_Color: {r: 1, g: 1, b: 0.33333334, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

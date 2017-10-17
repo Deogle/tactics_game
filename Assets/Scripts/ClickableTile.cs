@@ -7,6 +7,7 @@ public class ClickableTile : MonoBehaviour {
     public float tileY;
     public Map map;
     public bool IsHighlighted = false;
+    public bool ContainsUnit = false;
 
     Color defaultColor;
 

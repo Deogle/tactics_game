@@ -15,10 +15,18 @@ public class Unit : MonoBehaviour {
 
     private void OnMouseUp()
     {
-        Debug.Log("Moving Unit: " + this.gameObject.tag);
-        SelectUnit();
-        map.selectedUnit = this.gameObject;
-        FindPossibleMoves();
+        if(map.selectedUnit == null)
+        {
+            Debug.Log("Moving Unit: " + this.gameObject.name);
+            SelectUnit();
+            map.selectedUnit = this.gameObject;
+            FindPossibleMoves();
+        }
+        else if(map.selectedUnit == this.gameObject){
+            DeselectUnit();
+            map.ClearAllMoves();
+            possiblePaths = null;
+        }
     }
 
     //Build a list of all possible paths with current movement points
@@ -68,6 +76,7 @@ public class Unit : MonoBehaviour {
 
     public void MoveToSelection()
     {
+        map.MoveOffTile(unitX, unitY);
         int currentNode = 1;
         while(currentNode < currentPath.Count)
         {
@@ -76,7 +85,7 @@ public class Unit : MonoBehaviour {
             unitY = transform.position.y;
             currentNode++;
         }
-        
+        map.MoveToTile(unitX, unitY);
     }
 
     private void SelectUnit()
@@ -87,5 +96,6 @@ public class Unit : MonoBehaviour {
     private void DeselectUnit()
     {
         this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        map.selectedUnit = null;
     }
 }

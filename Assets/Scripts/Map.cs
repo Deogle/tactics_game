@@ -22,6 +22,7 @@ public class Map : MonoBehaviour {
     Node[,] graph;
 
     public ClickableTile[,] referenceTiles;
+    public List<GameObject> units;
 
     public int sizeX;
     public int sizeY;
@@ -31,12 +32,8 @@ public class Map : MonoBehaviour {
         GenerateMapData();
         GeneratePathGraph();
         GenerateMapVisual();
-
-        //Setup unit variables
-        selectedUnit.GetComponent<Unit>().unitX = selectedUnit.transform.position.x;
-        selectedUnit.GetComponent<Unit>().unitY = selectedUnit.transform.position.y;
-        selectedUnit.GetComponent<Unit>().map = this;
-
+        SpawnUnits();
+        selectedUnit = null;
     }//Start
 
 
@@ -79,7 +76,7 @@ public class Map : MonoBehaviour {
 
     }//GenerateMapData
 
-    float TileCost(float sourceX, float sourceY, float targetX, float targetY)
+    float TileCost(float sourceX, float sourceY, float targetX, float targetY,bool hasUnit)
     {
         
         TileType tt = tileTypes[tiles[(int)targetX,(int)targetY]];
@@ -89,6 +86,11 @@ public class Map : MonoBehaviour {
         if(sourceX != targetX && sourceY != targetY)
         {
             cost += 0.0001f;
+        }
+
+        if (hasUnit)
+        {
+            cost += 100000;
         }
 
         return cost;
@@ -210,7 +212,7 @@ public class Map : MonoBehaviour {
 
             foreach(Node v in u.edges)
             {
-                float alt = dist[u] + TileCost(u.x,u.y,v.x,v.y);
+                float alt = dist[u] + TileCost(u.x,u.y,v.x,v.y,referenceTiles[(int)v.x,(int)v.y].ContainsUnit);
                 //float alt = dist[u] + u.DistanceTo(v);
                 if (alt < dist[v] && alt <= selectedUnit.GetComponent<Unit>().movementPoints)
                 {
@@ -250,4 +252,27 @@ public class Map : MonoBehaviour {
         }
     }
     
+    public void SpawnUnits()
+    {
+        GameObject go = (GameObject)Instantiate(units[0], new Vector3(0, 0, 0), Quaternion.identity);
+        go.GetComponent<Unit>().unitX = 0;
+        go.GetComponent<Unit>().unitY = 0;
+        go.GetComponent<Unit>().map = this;
+
+        go = Instantiate(units[1], new Vector3(1, 0, 0), Quaternion.identity);
+
+        go.GetComponent<Unit>().unitX = 1;
+        go.GetComponent<Unit>().unitY = 0;
+        go.GetComponent<Unit>().map = this;
+    }
+
+    public void MoveToTile(float x, float y)
+    {
+        referenceTiles[(int)x, (int)y].ContainsUnit = true;
+    }
+
+    public void MoveOffTile(float x, float y)
+    {
+        referenceTiles[(int)x, (int)y].ContainsUnit = false;
+    }
 }
