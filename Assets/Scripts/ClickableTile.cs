@@ -23,6 +23,10 @@ public class ClickableTile : MonoBehaviour {
             map.selectedUnit.GetComponent<Unit>().MakeCurrentPath(tileX, tileY);
             map.ClearAllMoves();
         }
+        else if (map.addUnitMode)
+        {
+            map.SpawnUnits((int)tileX, (int)tileY);
+        }
     }
 
     public void ClearMove()

@@ -70,7 +70,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitX: 0
   unitY: 0
-  movementPoints: 3
+  movementPoints: 2
   map: {fileID: 0}
 --- !u!212 &212630492163511920
 SpriteRenderer:

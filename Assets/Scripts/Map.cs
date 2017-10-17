@@ -13,8 +13,15 @@ public class Map : MonoBehaviour {
         COUNT
     };
 
+    private enum UnitTypeEnum
+    {
+        MELEE_UNIT,
+        RANGED_UNIT,
+        COUNT
+    };
+
     public TileType[] tileTypes;
-    public GameObject playerUnit;
+    public UnitType[] unitTypes;
 
     public GameObject selectedUnit;
 
@@ -27,12 +34,14 @@ public class Map : MonoBehaviour {
     public int sizeX;
     public int sizeY;
 
+    public bool addUnitMode = false;
+
     void Start()
     {
         GenerateMapData();
         GeneratePathGraph();
         GenerateMapVisual();
-        SpawnUnits();
+        SpawnUnits(0,0);
         selectedUnit = null;
     }//Start
 
@@ -252,9 +261,9 @@ public class Map : MonoBehaviour {
         }
     }
     
-    public void SpawnUnits()
+    public void SpawnUnits(int x, int y)
     {
-        GameObject go = (GameObject)Instantiate(units[0], new Vector3(0, 0, 0), Quaternion.identity);
+        /*GameObject go = (GameObject)Instantiate(units[0], new Vector3(0, 0, 0), Quaternion.identity);
         go.GetComponent<Unit>().unitX = 0;
         go.GetComponent<Unit>().unitY = 0;
         go.GetComponent<Unit>().map = this;
@@ -263,7 +272,14 @@ public class Map : MonoBehaviour {
 
         go.GetComponent<Unit>().unitX = 1;
         go.GetComponent<Unit>().unitY = 0;
+        go.GetComponent<Unit>().map = this;*/
+
+        GameObject go = (GameObject)Instantiate(units[1], new Vector3(x, y, 0), Quaternion.identity);
+        go.GetComponent<Unit>().unitX = x;
+        go.GetComponent<Unit>().unitY = y;
         go.GetComponent<Unit>().map = this;
+
+
     }
 
     public void MoveToTile(float x, float y)
@@ -274,5 +290,10 @@ public class Map : MonoBehaviour {
     public void MoveOffTile(float x, float y)
     {
         referenceTiles[(int)x, (int)y].ContainsUnit = false;
+    }
+
+    public void ToggleAddUnitMode()
+    {
+        addUnitMode = !addUnitMode;
     }
 }
