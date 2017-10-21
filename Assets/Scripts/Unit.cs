@@ -9,23 +9,29 @@ public class Unit : MonoBehaviour {
     public float movementPoints;
     public Map map;
 
+    public bool hasMoved = false;
+
     public List<List<Node>> possiblePaths;
 
     public List<Node> currentPath = null;
 
     private void OnMouseUp()
     {
-        if(map.selectedUnit == null)
+        if (!hasMoved)
         {
-            Debug.Log("Moving Unit: " + this.gameObject.name);
-            SelectUnit();
-            map.selectedUnit = this.gameObject;
-            FindPossibleMoves();
-        }
-        else if(map.selectedUnit == this.gameObject){
-            DeselectUnit();
-            map.ClearAllMoves();
-            possiblePaths = null;
+            if (map.selectedUnit == null)
+            {
+                SelectUnit();
+                map.selectedUnit = this.gameObject;
+                FindPossibleMoves();
+                hasMoved = true;
+            }
+            else if (map.selectedUnit == this.gameObject)
+            {
+                DeselectUnit();
+                map.ClearAllMoves();
+                possiblePaths = null;
+            }
         }
     }
 
@@ -34,14 +40,43 @@ public class Unit : MonoBehaviour {
     {
         possiblePaths = new List<List<Node>>();
 
-        //fairly inefficient method of finding possible moves.
+        //incredibly inefficient method of finding possible moves.
         //could constrain it to look at most movementPoints tiles away
         //but this works in acceptable time given small grids
-        for(int x = 0; x < map.sizeX; x++)
+        /*for(int x = 0; x < map.sizeX; x++)
         {
             for(int y = 0; y < map.sizeY; y++)
             {
                map.GeneratePathTo(x, y);        
+            }
+        }*/
+
+        //New constraints - check to the up and right of unit
+        //then check to the left and down. this should eliminate
+        //having to check every tile on the map
+        
+        //up and right
+        for(int x = (int)unitX; x < unitX + movementPoints && x < map.sizeX; x++)
+        {
+            for(int y = (int)unitY; y < unitY + movementPoints && y < map.sizeY; y++)
+            {
+                if(y >= 0 && x >= 0 && x < map.sizeX && y < map.sizeY)
+                {
+                    map.GeneratePathTo(x, y);
+                }
+               
+            }
+        }
+        //down and left
+        for (int x = (int)(unitX - movementPoints); x <= unitX+movementPoints; x++)
+        {
+            for(int y = (int)(unitY-movementPoints); y <= unitY+movementPoints; y++)
+            {
+                Debug.Log(x + "," + y);
+                if(y >= 0 && x >= 0 && x < map.sizeX && y < map.sizeY)
+                {
+                    map.GeneratePathTo(x, y);
+                }
             }
         }
         

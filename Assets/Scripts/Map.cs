@@ -112,7 +112,6 @@ public class Map : MonoBehaviour {
         graph = new Node[sizeX, sizeY];
 
         //Init a node for each tile being added to the graph 
-        //Problem is that this is also including the grass tiles which shouldn't be part of the graph
         for(int x= 0; x < sizeX; x++)
         {
             for(int y= 0; y < sizeY; y++)
@@ -140,7 +139,7 @@ public class Map : MonoBehaviour {
                     graph[x, y].edges.Add(graph[x, y + 1]); //connect via top
             }
         }
-    }
+    }//GeneratePathGraph
 
     void GenerateMapVisual()
     {
@@ -162,8 +161,6 @@ public class Map : MonoBehaviour {
                                 
             }
         }
-
-        //selectedUnit = (GameObject)  Instantiate(unit, new Vector3(startY, startX, 0), Quaternion.identity);
 
     }//GenerateMapVisual
 
@@ -259,41 +256,31 @@ public class Map : MonoBehaviour {
         {
             tile.ClearMove();
         }
-    }
+    }//ClearAllMoves
     
     public void SpawnUnits(int x, int y)
     {
-        /*GameObject go = (GameObject)Instantiate(units[0], new Vector3(0, 0, 0), Quaternion.identity);
-        go.GetComponent<Unit>().unitX = 0;
-        go.GetComponent<Unit>().unitY = 0;
-        go.GetComponent<Unit>().map = this;
-
-        go = Instantiate(units[1], new Vector3(1, 0, 0), Quaternion.identity);
-
-        go.GetComponent<Unit>().unitX = 1;
-        go.GetComponent<Unit>().unitY = 0;
-        go.GetComponent<Unit>().map = this;*/
-
         GameObject go = (GameObject)Instantiate(units[1], new Vector3(x, y, 0), Quaternion.identity);
         go.GetComponent<Unit>().unitX = x;
         go.GetComponent<Unit>().unitY = y;
         go.GetComponent<Unit>().map = this;
 
 
-    }
+    }//SpawnUnit
 
     public void MoveToTile(float x, float y)
     {
         referenceTiles[(int)x, (int)y].ContainsUnit = true;
-    }
+    }//MoveToTile
 
     public void MoveOffTile(float x, float y)
     {
         referenceTiles[(int)x, (int)y].ContainsUnit = false;
-    }
+    }//MoveOffTile
 
+    //A debug function useful for deploying multiple units at once during testing
     public void ToggleAddUnitMode()
     {
         addUnitMode = !addUnitMode;
-    }
+    }//ToggleAddUnitMode
 }

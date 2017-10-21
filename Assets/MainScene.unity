@@ -193,7 +193,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 605705760}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5, y: 5, z: -10}
+  m_LocalPosition: {x: 2.5, y: 2.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -206,16 +206,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114209524121553714, guid: 143d99afd58c4834681e9c27e2321f87,
-        type: 2}
-      propertyPath: units.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114209524121553714, guid: 143d99afd58c4834681e9c27e2321f87,
-        type: 2}
-      propertyPath: unitTypes.Array.size
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 4116182987339300, guid: 143d99afd58c4834681e9c27e2321f87, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -248,50 +238,26 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114445875028918650, guid: 143d99afd58c4834681e9c27e2321f87,
+        type: 2}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 605705760}
     - target: {fileID: 114209524121553714, guid: 143d99afd58c4834681e9c27e2321f87,
         type: 2}
-      propertyPath: selectedUnit
-      value: 
+      propertyPath: sizeX
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 114209524121553714, guid: 143d99afd58c4834681e9c27e2321f87,
         type: 2}
-      propertyPath: playerUnit
-      value: 
+      propertyPath: sizeY
+      value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114209524121553714, guid: 143d99afd58c4834681e9c27e2321f87,
+    - target: {fileID: 114445875028918650, guid: 143d99afd58c4834681e9c27e2321f87,
         type: 2}
-      propertyPath: units.Array.data[0]
+      propertyPath: cameraObj
       value: 
-      objectReference: {fileID: 1297263785618854, guid: e3251db1baec5344896d1d713e866415,
-        type: 2}
-    - target: {fileID: 114209524121553714, guid: 143d99afd58c4834681e9c27e2321f87,
-        type: 2}
-      propertyPath: units.Array.data[1]
-      value: 
-      objectReference: {fileID: 1180992818386124, guid: d28e1a21f0f20b445aa61fd8ed5bc1e9,
-        type: 2}
-    - target: {fileID: 114209524121553714, guid: 143d99afd58c4834681e9c27e2321f87,
-        type: 2}
-      propertyPath: unitTypes.Array.data[0].name
-      value: MeleeUnit
-      objectReference: {fileID: 0}
-    - target: {fileID: 114209524121553714, guid: 143d99afd58c4834681e9c27e2321f87,
-        type: 2}
-      propertyPath: unitTypes.Array.data[0].unitVisualPrefab
-      value: 
-      objectReference: {fileID: 1297263785618854, guid: e3251db1baec5344896d1d713e866415,
-        type: 2}
-    - target: {fileID: 114209524121553714, guid: 143d99afd58c4834681e9c27e2321f87,
-        type: 2}
-      propertyPath: unitTypes.Array.data[1].name
-      value: RangedUnit
-      objectReference: {fileID: 0}
-    - target: {fileID: 114209524121553714, guid: 143d99afd58c4834681e9c27e2321f87,
-        type: 2}
-      propertyPath: unitTypes.Array.data[1].unitVisualPrefab
-      value: 
-      objectReference: {fileID: 1180992818386124, guid: d28e1a21f0f20b445aa61fd8ed5bc1e9,
-        type: 2}
+      objectReference: {fileID: 605705760}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 143d99afd58c4834681e9c27e2321f87, type: 2}
   m_IsPrefabParent: 0
