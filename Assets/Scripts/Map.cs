@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Map : MonoBehaviour {
 
+    public PlayerManager playerManager;
+
     private enum TileFloors
     {
         GRASS_TILE,
@@ -261,11 +263,11 @@ public class Map : MonoBehaviour {
     public void SpawnUnits(int x, int y)
     {
         GameObject go = (GameObject)Instantiate(units[1], new Vector3(x, y, 0), Quaternion.identity);
+        playerManager.AddUnit(go);
         go.GetComponent<Unit>().unitX = x;
         go.GetComponent<Unit>().unitY = y;
         go.GetComponent<Unit>().map = this;
-
-
+        
     }//SpawnUnit
 
     public void MoveToTile(float x, float y)

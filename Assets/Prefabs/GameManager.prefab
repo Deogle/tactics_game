@@ -52,6 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91a785eaf48e1074a8699ba65af2abd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerManager: {fileID: 0}
   tileTypes:
   - name: GrassTile
     tileVisualPrefab: {fileID: 1955945189754890, guid: f0d0092c47d882846b9e8e32e00699be,
@@ -79,8 +80,8 @@ MonoBehaviour:
   units:
   - {fileID: 1297263785618854, guid: e3251db1baec5344896d1d713e866415, type: 2}
   - {fileID: 1180992818386124, guid: d28e1a21f0f20b445aa61fd8ed5bc1e9, type: 2}
-  sizeX: 5
-  sizeY: 5
+  sizeX: 10
+  sizeY: 2
   addUnitMode: 0
 --- !u!114 &114445875028918650
 MonoBehaviour:
@@ -93,4 +94,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7422f327dee27c347b85580e9061eca8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 0}
+  cameraObj: {fileID: 0}
