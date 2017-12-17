@@ -7,7 +7,7 @@ public class Unit : MonoBehaviour {
     public float unitX;
     public float unitY;
     public float movementPoints;
-    public Map map;
+    public GameManager map;
 
     public bool hasMoved = false;
 
@@ -24,7 +24,6 @@ public class Unit : MonoBehaviour {
                 SelectUnit();
                 map.selectedUnit = this.gameObject;
                 FindPossibleMoves();
-                hasMoved = true;
             }
             else if (map.selectedUnit == this.gameObject)
             {
@@ -72,7 +71,7 @@ public class Unit : MonoBehaviour {
         {
             for(int y = (int)(unitY-movementPoints); y <= unitY+movementPoints; y++)
             {
-                Debug.Log(x + "," + y);
+                //Debug.Log(x + "," + y);
                 if(y >= 0 && x >= 0 && x < map.sizeX && y < map.sizeY)
                 {
                     map.GeneratePathTo(x, y);
@@ -100,11 +99,12 @@ public class Unit : MonoBehaviour {
     public void MakeCurrentPath(float x, float y)
     {
         possiblePaths.Clear();
-        Debug.Log("Pathing to " + x+"," + y);
+        hasMoved = true;
+        //Debug.Log("Pathing to " + x+"," + y);
         map.GeneratePathTo(x, y);
-        Debug.Log("Lenght of possiblePaths: " + possiblePaths.Count);
+        //Debug.Log("Lenght of possiblePaths: " + possiblePaths.Count);
         currentPath = possiblePaths[0];
-        Debug.Log("Length of new currentPath " + currentPath.Count);
+        //Debug.Log("Length of new currentPath " + currentPath.Count);
         MoveToSelection();
         DeselectUnit();
     }
