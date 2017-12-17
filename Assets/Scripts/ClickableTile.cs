@@ -5,8 +5,9 @@ using UnityEngine;
 public class ClickableTile : MonoBehaviour {
     public float tileX;
     public float tileY;
-    public Map map;
+    public GameManager map;
     public bool IsHighlighted = false;
+    public bool ContainsUnit = false;
 
     Color defaultColor;
 
@@ -21,6 +22,10 @@ public class ClickableTile : MonoBehaviour {
         {
             map.selectedUnit.GetComponent<Unit>().MakeCurrentPath(tileX, tileY);
             map.ClearAllMoves();
+        }
+        else if (map.addUnitMode)
+        {
+            map.SpawnUnits((int)tileX, (int)tileY);
         }
     }
 

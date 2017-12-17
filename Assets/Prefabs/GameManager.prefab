@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4116182987339300}
   - component: {fileID: 114209524121553714}
+  - component: {fileID: 114445875028918650}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -51,20 +52,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91a785eaf48e1074a8699ba65af2abd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerManager: {fileID: 0}
   tileTypes:
   - name: GrassTile
     tileVisualPrefab: {fileID: 1955945189754890, guid: f0d0092c47d882846b9e8e32e00699be,
       type: 2}
+    ContainsUnit: 0
     movementCost: 2
   - name: WoodTile
     tileVisualPrefab: {fileID: 1592915835101474, guid: 2bf12096d94c86f41a4282a09dcd02ef,
       type: 2}
+    ContainsUnit: 0
     movementCost: 1
   - name: WaterTile
     tileVisualPrefab: {fileID: 1075107180152688, guid: 532b6d8d2eb3fb244a4a198bff8fe32a,
       type: 2}
+    ContainsUnit: 0
     movementCost: 40000
-  unit: {fileID: 1297263785618854, guid: e3251db1baec5344896d1d713e866415, type: 2}
+  unitTypes:
+  - name: MeleeUnit
+    unitVisualPrefab: {fileID: 1297263785618854, guid: e3251db1baec5344896d1d713e866415,
+      type: 2}
+  - name: RangedUnit
+    unitVisualPrefab: {fileID: 1180992818386124, guid: d28e1a21f0f20b445aa61fd8ed5bc1e9,
+      type: 2}
   selectedUnit: {fileID: 0}
+  units:
+  - {fileID: 1297263785618854, guid: e3251db1baec5344896d1d713e866415, type: 2}
+  - {fileID: 1180992818386124, guid: d28e1a21f0f20b445aa61fd8ed5bc1e9, type: 2}
   sizeX: 10
-  sizeY: 10
+  sizeY: 2
+  addUnitMode: 0
+--- !u!114 &114445875028918650
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1851272863077806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7422f327dee27c347b85580e9061eca8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraObj: {fileID: 0}
